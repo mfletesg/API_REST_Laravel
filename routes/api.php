@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token, x_csrftoken');
+Route::get('/user', function(){
+  $items = User::all()->toJson();
+  return response($items)->header('Content-Type', 'application/json');
 });
